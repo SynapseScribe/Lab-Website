@@ -1,6 +1,7 @@
 const container = document.querySelector('.side-panel-container');
 const trigger = document.querySelector('.side-panel-trigger');
 const panel = document.querySelector('.side-panel');
+const contactForm = document.getElementById('contactForm');
 
 if (container && trigger && panel) {
     container.addEventListener('mouseenter', (e) => {
@@ -20,3 +21,28 @@ if (container && trigger && panel) {
         panel.style.top = `${newTop}px`;
     });
 }
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Meow! Your message has been sent to Negruta\'s fan club!');
+        contactForm.reset();
+    });
+}
+
+const floatingCats = document.querySelectorAll('.floating-cats span');
+const catFacts = [
+    "Cats can make over 100 different sounds.",
+    "A group of cats is called a clowder.",
+    "Cats spend about 70% of their lives sleeping.",
+    "Cats have a special organ that allows them to 'taste' scents.",
+    "Every cat's nose print is unique, much like a human fingerprint."
+];
+
+floatingCats.forEach(cat => {
+    cat.addEventListener('click', () => {
+        const fact = catFacts[Math.floor(Math.random() * catFacts.length)];
+        alert(`Cat Fact: ${fact}`);
+    });
+    cat.style.cursor = 'pointer';
+});
