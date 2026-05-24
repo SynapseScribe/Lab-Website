@@ -36,7 +36,12 @@ const catFacts = [
     "A group of cats is called a clowder.",
     "Cats spend about 70% of their lives sleeping.",
     "Cats have a special organ that allows them to 'taste' scents.",
-    "Every cat's nose print is unique, much like a human fingerprint."
+    "Every cat's nose print is unique, much like a human fingerprint.",
+    "Cats can jump up to six times their length.",
+    "A cat's hearing is much more acute than a human's.",
+    "Cats have a third eyelid called the nictitating membrane.",
+    "Most cats are lactose intolerant.",
+    "Cats use their whiskers to navigate in the dark."
 ];
 
 floatingCats.forEach(cat => {
