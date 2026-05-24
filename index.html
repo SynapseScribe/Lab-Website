@@ -88,28 +88,26 @@
         </div>
 
         <script>
-            let anchored = false;
-            document.addEventListener('mousemove', (e) => {
-                const container = document.querySelector('.side-panel-container');
-                const trigger = document.querySelector('.side-panel-trigger');
-                const panel = document.querySelector('.side-panel');
-                if (container && container.contains(e.target)) {
-                    if (!anchored && !panel.contains(e.target)) {
-                        let newTop = e.clientY - 20; 
-                        
-                        const panelHeight = panel.offsetHeight;
-                        const viewportHeight = window.innerHeight;
-                        
-                        if (newTop + panelHeight > viewportHeight) {
-                            newTop = viewportHeight - panelHeight;
-                        }
+            const container = document.querySelector('.side-panel-container');
+            const trigger = document.querySelector('.side-panel-trigger');
+            const panel = document.querySelector('.side-panel');
 
-                        trigger.style.top = `${newTop}px`;
-                        panel.style.top = `${newTop}px`;
-                        anchored = true;
+            document.addEventListener('mousemove', (e) => {
+                if (container && container.contains(e.target)) {
+                    let newTop = e.clientY - 20; 
+                    
+                    const panelHeight = panel.offsetHeight;
+                    const viewportHeight = window.innerHeight;
+                    
+                    if (newTop + panelHeight > viewportHeight) {
+                        newTop = viewportHeight - panelHeight;
                     }
-                } else {
-                    anchored = false;
+                    if (newTop < 0) {
+                        newTop = 0;
+                    }
+
+                    trigger.style.top = `${newTop}px`;
+                    panel.style.top = `${newTop}px`;
                 }
             });
         </script>
