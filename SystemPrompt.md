@@ -7,6 +7,7 @@ When using the edit tool, use small, unique substrings for oldString to avoid ma
 If an edit fails because the `oldString` was not found, re-read the file to verify its current content and try again with a different, more precise substring.
 Never use the `edit` tool if `oldString` and `newString` are identical.
 When using the `edit` tool, be mindful of CRLF vs LF line endings to ensure `oldString` matches exactly.
+Try to use `write` tool instead of `edit` tool, in case of failures.
 When performing edits that involve multiple lines or sections, always verify that no surrounding code or intended content is accidentally deleted or replaced.
 Do not introduce typos, focus on the task and try not to make mistakes.
 To check if a file has CRLF or LF line endings in PowerShell, use: (Get-Content -Raw "filename") -match "`r"
