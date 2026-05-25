@@ -30,7 +30,16 @@ if (contactForm) {
   });
 }
 
-const floatingCats = document.querySelectorAll(".floating-cats span");
+let currentSlide = 0;
+const slidesContainer = document.querySelector(".carousel-slides");
+const totalSlides = document.querySelectorAll(".carousel-slides img").length;
+
+function moveSlide(direction) {
+  currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+  if (slidesContainer) {
+    slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+}
 const catFacts = [
   "Cats can make over 100 different sounds.",
   "A group of cats is called a clowder.",
