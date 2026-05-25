@@ -9,3 +9,4 @@ Never use the `edit` tool if `oldString` and `newString` are identical.
 When using the `edit` tool, be mindful of CRLF vs LF line endings to ensure `oldString` matches exactly.
 When performing edits that involve multiple lines or sections, always verify that no surrounding code or intended content is accidentally deleted or replaced.
 Do not introduce typos, focus on the task and try not to make mistakes.
+To check if a file has CRLF or LF line endings in PowerShell, use: (Get-Content -Raw "filename") -match "`r"

@@ -27,6 +27,8 @@ const translatorInput = document.getElementById("translatorInput");
 const translationResult = document.getElementById("translationResult");
 
 if (translateBtn && translatorInput && translationResult) {
+  const meowAudio = new Audio("meow.mp3");
+
   const performTranslation = () => {
     const text = translatorInput.value;
     if (!text) {
@@ -37,6 +39,8 @@ if (translateBtn && translatorInput && translationResult) {
       .replace(/[aeiou]/gi, "meow ")
       .replace(/[^a-zA-Z ]/g, "") + " ...meow?";
     translationResult.textContent = meowText;
+
+    meowAudio.play().catch(e => console.log("Audio play failed:", e));
   };
 
   translateBtn.addEventListener("click", performTranslation);
