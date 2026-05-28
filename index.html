@@ -134,9 +134,27 @@
                >New Pill Treats Diabetic Cats Without Daily Insulin Shots</a
            </li>
          </ul>
-       </section>
+        </section>
+        
+        <section class="cat-game" id="cat-game">
+          <h3>Cat Jump Challenge</h3>
+          <div class="game-container">
+            <div class="game-controls">
+              <input type="text" id="playerNameInput" placeholder="Enter your name" />
+              <button id="startGameBtn">Start Game</button>
+            </div>
+            <canvas id="gameCanvas" width="400" height="200"></canvas>
+            <div class="game-info">
+              <p id="gameScore">Score: 0</p>
+            </div>
+            <div class="score-board">
+              <h4>High Scores</h4>
+              <ul id="scoreList"></ul>
+            </div>
+          </div>
+        </section>
 
-       <section class="meow-translator" id="meow-translator">
+        <section class="meow-translator" id="meow-translator">
          <h3>The Meow Translator</h3>
          <p>Type something to hear it in Negruta's language!</p>
          <div class="translator-container">
@@ -178,5 +196,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="game.js"></script>
   </body>
 </html>
