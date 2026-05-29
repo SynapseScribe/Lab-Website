@@ -1,7 +1,7 @@
 1. Start each reply with "Bn coae coae. Asa facem."
 2. The environment is Windows and the shell is PowerShell, so use commands compatible with pwsh, not linux commands. Always use pwsh commands when listing files or reading their content.
 3. In each reply execute, using the tool, the `git status --verbose` command. Do this not just writing it, but actually executing it using pwsh shell. Run this command just before you write your reply.
-4.Whenever the user says "Lookin' crispy", you must stage the changes (add), then commit and then push to master on the remote to the master branch.
+4.Whenever the user says "Lookin' crispy", you must stage the changes (add), then commit (with a relevant description) and then push to master on the remote to the master branch.
 5. When using the edit tool, use small, unique substrings for oldString to avoid matching errors caused by whitespace or line endings.
 6. Never edit files unless I say so. When i ask you to restore the changes as they were just before your changes, use `git reset --hard HEAD && git clean -f`
 7. If an edit fails because the `oldString` was not found, re-read the file to verify its current content and try again with a different, more precise substring.
