@@ -14,7 +14,7 @@ const jumpStrength = -10;
 const INITIAL_SPEED = 3;
 const MAX_SPEED = 8;
 const SPEED_INCREMENT = 0.5;
-const OBSTACLE_TYPES = ["🌲", "🏠", "🏀", "🚗", "🌵", "📦", "🧱"];
+const OBSTACLE_TYPES = ["🌲", "🏠", "🏀", "🚗", "🌵", "📦", "🧱", "🦄", "🛸", "🦖", "🍕", "🍍", "🗿", "🤡", "🍄", "👻", "👽", "🐙", "🌈", "🍦", "🍩", "🍔", "🌮", "🍣", "🥨", "🥑", "🍉", "🐉", "🦁", "🐵", "🐧", "🐘", "🦒", "🐢", "🐍", "🐝", "🦋", "🚀", "🚁", "🚂", "🚢", "🚲", "🛵", "🏎️", "🚜", "🚐", "🚠", "🎸", "🎹", "🎻", "🎺", "🥁", "🎨", "📚", "🧪", "🔬", "🔭", "🏰", "🎡", "🎢", "🗼", "🗽", "⛩️"];
 let obstacles = [];
 let collectibles = [];
 let frameCount = 0;
@@ -32,7 +32,7 @@ function resetGame() {
 }
 
 function spawnObstacle() {
-    const size = Math.floor(Math.random() * 31) + 20; // Size between 20 and 50
+    const size = Math.floor(Math.random() * 26) + 25; // Size between 25 and 50
     const type = OBSTACLE_TYPES[Math.floor(Math.random() * OBSTACLE_TYPES.length)];
     obstacles.push({
         x: canvas.width,
