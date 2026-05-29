@@ -12,6 +12,7 @@ let velocityY = 0;
 const gravity = 0.6;
 const jumpStrength = -10;
 let obstacles = [];
+let collectibles = [];
 let frameCount = 0;
 
 function resetGame() {
@@ -19,6 +20,7 @@ function resetGame() {
     catY = 150;
     velocityY = 0;
     obstacles = [];
+    collectibles = [];
     frameCount = 0;
     scoreElement.innerText = "Score: 0";
 }
@@ -28,6 +30,16 @@ function spawnObstacle() {
     obstacles.push({
         x: canvas.width,
         y: canvas.height - size,
+        width: size,
+        height: size
+    });
+}
+
+function spawnCollectible() {
+    const size = 30;
+    collectibles.push({
+        x: canvas.width,
+        y: Math.random() * (canvas.height - size),
         width: size,
         height: size
     });
@@ -65,6 +77,27 @@ function update() {
             obstacles.splice(i, 1);
             score++;
             scoreElement.innerText = `Score: ${score}`;
+    }
+}
+
+    // Collectibles movement and collision
+    for (let i = collectibles.length - 1; i >= 0; i--) {
+        collectibles[i].x -= 5;
+
+        if (
+            40 < collectibles[i].x + collectibles[i].width &&
+            40 + 30 > collectibles[i].x &&
+            catY < collectibles[i].y + collectibles[i].height &&
+            catY + 30 > collectibles[i].y
+        ) {
+            score += 5;
+            scoreElement.innerText = `Score: ${score}`;
+            collectibles.splice(i, 1);
+            continue;
+        }
+
+        if (collectibles[i].x + collectibles[i].width < 0) {
+            collectibles.splice(i, 1);
         }
     }
 
@@ -72,6 +105,9 @@ function update() {
     frameCount++;
     if (frameCount % 100 === 0) {
         spawnObstacle();
+    }
+    if (frameCount % 150 === 0) {
+        spawnCollectible();
     }
 
     draw();
@@ -89,6 +125,12 @@ function draw() {
     ctx.fillStyle = "#000";
     obstacles.forEach(obs => {
         ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+    });
+
+    // Draw Collectibles (Fish Emoji)
+    ctx.font = "30px Arial";
+    collectibles.forEach(coll => {
+        ctx.fillText("🐟", coll.x, coll.y + 25);
     });
 }
 
