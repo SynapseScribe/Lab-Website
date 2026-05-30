@@ -111,6 +111,18 @@ const catFacts = [
   "Cats have a third eyelid called the nictitating membrane.",
   "Most cats are lactose intolerant.",
   "Cats use their whiskers to navigate in the dark.",
+  "Cats can rotate their ears 180 degrees.",
+  "A cat's brain is similar to a human's in terms of structure.",
+  "Cats have five toes on their front paws and four on their back paws.",
+  "Some cats are polydactyl, meaning they have more than the usual number of toes.",
+  "The first cat in space was French (Félicette).",
+  "Cats can run up to 30 mph.",
+  "A cat's purr frequency can help improve bone density and heal tendons.",
+  "Most cats only meow at humans, not other cats.",
+  "Cats have a powerful sense of balance thanks to their inner ear.",
+  "Ancient Egyptians worshipped cats as symbols of grace and protection.",
+  "Some cats are allergic to certain plants like lilies.",
+  "A cat's heart beats 110 to 140 times per minute.",
 ];
 
 const floatingCats = document.querySelectorAll(".floating-cats span");
