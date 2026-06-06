@@ -1,20 +1,24 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+const CAT_X = 40;
+const CAT_SIZE = 30;
 const scoreElement = document.getElementById('gameScore');
 const nameInput = document.getElementById('playerNameInput');
 const startBtn = document.getElementById('startGameBtn');
+
+const gravity = 0.6;
+const jumpStrength = -10;
+const INITIAL_SPEED = 1;
+const MAX_SPEED = 8;
+const SPEED_INCREMENT = 0.5;
+const COLLISION_PADDING = 5;
+const OBSTACLE_TYPES = ["🌲", "🏠", "🏀", "🚗", "🌵", "📦", "🧱", "🦄", "🛸", "🦖", "🍕", "🍍", "🗿", "🤡", "🍄", "👻", "👽", "🐙", "🌈", "🍦", "🍩", "🍔", "🌮", "🍣", "🥨", "🥑", "🍉", "🐉", "🦁", "🐵", "🐧", "🐘", "🦒", "🐢", "🐍", "🐝", "🦋", "🚀", "🚁", "🚂", "🚢", "🚲", "🛵", "🏎️", "🚜", "🚐", "🚠", "🎸", "🎹", "🎻", "🎺", "🥁", "🎨", "📚", "🧪", "🔬", "🔭", "🏰", "🎡", "🎢", "🗼", "🗽", "⛩️"];
 
 let gameRunning = false;
 let score = 0;
 let playerName = "";
 let catY = 150;
 let velocityY = 0;
-const gravity = 0.6;
-const jumpStrength = -10;
-const INITIAL_SPEED = 3;
-const MAX_SPEED = 8;
-const SPEED_INCREMENT = 0.5;
-const OBSTACLE_TYPES = ["🌲", "🏠", "🏀", "🚗", "🌵", "📦", "🧱", "🦄", "🛸", "🦖", "🍕", "🍍", "🗿", "🤡", "🍄", "👻", "👽", "🐙", "🌈", "🍦", "🍩", "🍔", "🌮", "🍣", "🥨", "🥑", "🍉", "🐉", "🦁", "🐵", "🐧", "🐘", "🦒", "🐢", "🐍", "🐝", "🦋", "🚀", "🚁", "🚂", "🚢", "🚲", "🛵", "🏎️", "🚜", "🚐", "🚠", "🎸", "🎹", "🎻", "🎺", "🥁", "🎨", "📚", "🧪", "🔬", "🔭", "🏰", "🎡", "🎢", "🗼", "🗽", "⛩️"];
 let obstacles = [];
 let collectibles = [];
 let frameCount = 0;
@@ -62,27 +66,77 @@ function update() {
 
     const currentSpeed = Math.min(MAX_SPEED, INITIAL_SPEED + Math.floor(score / 10) * SPEED_INCREMENT);
 
-    // Gravity
-    velocityY += gravity;
-    catY += velocityY;
+	// Gravity
+	velocityY += gravity;
+	catY += velocityY;
 
-    // Floor collision
-    if (catY + 30 > canvas.height) {
-        catY = canvas.height - 30;
-        velocityY = 0;
-    }
+	const catLeft = CAT_X - CAT_SIZE;
+	const catRight = CAT_X;
+	const catTop = catY;
+	const catBottom = catY + CAT_SIZE;
+
+	// Floor collision
+	if (catBottom > canvas.height) {
+		catY = canvas.height - CAT_SIZE;
+		velocityY = 0;
+	}
+
+	// Obstacle movement
+	for (let i = obstacles.length - 1; i >= 0; i--) {
+		obstacles[i].x -= currentSpeed;
+
+		// Collision detection
+		if (
+			catLeft + COLLISION_PADDING < obstacles[i].x + obstacles[i].width - COLLISION_PADDING &&
+			catRight - COLLISION_PADDING > obstacles[i].x + COLLISION_PADDING &&
+			catTop + COLLISION_PADDING < obstacles[i].y + obstacles[i].height - COLLISION_PADDING &&
+			catBottom - COLLISION_PADDING > obstacles[i].y + COLLISION_PADDING
+		) {
+			gameOver();
+		}
+
+		// Remove off-screen obstacles
+		if (obstacles[i].x + obstacles[i].width < 0) {
+			obstacles.splice(i, 1);
+			score++;
+			scoreElement.innerText = `Score: ${score}`;
+		}
+	}
+
+	// Collectibles movement and collision
+	for (let i = collectibles.length - 1; i >= 0; i--) {
+		collectibles[i].x -= currentSpeed;
+
+		if (
+			catLeft + COLLISION_PADDING < collectibles[i].x + collectibles[i].width - COLLISION_PADDING &&
+			catRight - COLLISION_PADDING > collectibles[i].x + COLLISION_PADDING &&
+			catTop + COLLISION_PADDING < collectibles[i].y + collectibles[i].height - COLLISION_PADDING &&
+			catBottom - COLLISION_PADDING > collectibles[i].y + COLLISION_PADDING
+		) {
+			score += 5;
+			scoreElement.innerText = `Score: ${score}`;
+			collectibles.splice(i, 1);
+			continue;
+		}
+
+		if (collectibles[i].x + collectibles[i].width < 0) {
+			collectibles.splice(i, 1);
+		}
+	}
+
 
     // Obstacle movement
     for (let i = obstacles.length - 1; i >= 0; i--) {
         obstacles[i].x -= currentSpeed;
 
-        // Collision detection
-        if (
-            40 < obstacles[i].x + obstacles[i].width &&
-            40 + 30 > obstacles[i].x &&
-            catY < obstacles[i].y + obstacles[i].height &&
-            catY + 30 > obstacles[i].y
-        ) {
+		// Collision detection
+		if (
+			CAT_X + COLLISION_PADDING < obstacles[i].x + obstacles[i].width - COLLISION_PADDING &&
+			CAT_X + CAT_SIZE - COLLISION_PADDING > obstacles[i].x + COLLISION_PADDING &&
+			catY + COLLISION_PADDING < obstacles[i].y + obstacles[i].height - COLLISION_PADDING &&
+			catY + CAT_SIZE - COLLISION_PADDING > obstacles[i].y + COLLISION_PADDING
+		) {
+
             gameOver();
         }
 
@@ -91,19 +145,20 @@ function update() {
             obstacles.splice(i, 1);
             score++;
             scoreElement.innerText = `Score: ${score}`;
+        }
     }
-}
 
     // Collectibles movement and collision
     for (let i = collectibles.length - 1; i >= 0; i--) {
         collectibles[i].x -= currentSpeed;
 
-        if (
-            40 < collectibles[i].x + collectibles[i].width &&
-            40 + 30 > collectibles[i].x &&
-            catY < collectibles[i].y + collectibles[i].height &&
-            catY + 30 > collectibles[i].y
-        ) {
+		if (
+			CAT_X + COLLISION_PADDING < collectibles[i].x + collectibles[i].width - COLLISION_PADDING &&
+			CAT_X + CAT_SIZE - COLLISION_PADDING > collectibles[i].x + COLLISION_PADDING &&
+			catY + COLLISION_PADDING < collectibles[i].y + collectibles[i].height - COLLISION_PADDING &&
+			catY + CAT_SIZE - COLLISION_PADDING > collectibles[i].y + COLLISION_PADDING
+		) {
+
             score += 5;
             scoreElement.innerText = `Score: ${score}`;
             collectibles.splice(i, 1);
@@ -133,9 +188,9 @@ function draw() {
 
     // Draw Cat (Black Cat Emoji) - Flipped Horizontally
     ctx.save();
-    ctx.translate(50, catY + 25);
+    ctx.translate(CAT_X, catY + CAT_SIZE / 2);
     ctx.scale(-1, 1);
-    ctx.font = "30px Arial";
+    ctx.font = `${CAT_SIZE}px Arial`;
     ctx.fillText("🐈‍⬛", 0, 0);
     ctx.restore();
 
@@ -161,7 +216,7 @@ function gameOver() {
 }
 
 function saveScore(name, finalScore) {
-    const newScore = { name, score: score, date: new Date().toLocaleDateString() };
+    const newScore = { name, score: finalScore, date: new Date().toLocaleDateString() };
     let scores = JSON.parse(localStorage.getItem('catGameScores') || '[]');
     scores.push(newScore);
     localStorage.setItem('catGameScores', JSON.stringify(scores));
@@ -172,7 +227,8 @@ function displayScores() {
     const scoreList = document.getElementById('scoreList');
     if (!scoreList) return;
     const scores = JSON.parse(localStorage.getItem('catGameScores') || '[]');
-    scoreList.innerHTML = scores.map(s => `<li>${s.name}: ${s.score} (${s.date})</li>`).join('');
+    const topScores = scores.sort((a, b) => b.score - a.score).slice(0, 10);
+    scoreList.innerHTML = topScores.map(s => `<li>${s.name}: ${s.score} (${s.date})</li>`).join('');
 }
 
 function startGame() {
