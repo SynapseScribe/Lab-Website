@@ -24,7 +24,7 @@ let collectibles = [];
 let frameCount = 0;
 let nextObstacleFrame = 100;
 let jumpCount = 0;
-const maxJumpsBeforeReset = 3;
+const maxJumpsBeforeReset = 2;
 
 function resetGame() {
     score = 0;
@@ -56,9 +56,10 @@ function spawnObstacle() {
 
 function spawnCollectible() {
     const size = 30;
+    // Spawn within double-jump reach (cat can reach up to ~326px from bottom)
     collectibles.push({
         x: canvas.width,
-        y: Math.random() * (canvas.height - size),
+        y: Math.random() * (canvas.height - 350), // Max reachable height minus some buffer
         width: size,
         height: size
     });
