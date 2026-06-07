@@ -138,19 +138,11 @@ function update() {
         ) {
             gameOver();
         }
-
         // Remove off-screen obstacles
         if (obstacles[i].x + obstacles[i].width < 0) {
             obstacles.splice(i, 1);
             score++;
             scoreElement.innerText = `Score: ${score}`;
-        }
-    }
-
-
-
-        if (collectibles[i].x + collectibles[i].width < 0) {
-            collectibles.splice(i, 1);
         }
     }
 
