@@ -40,9 +40,8 @@
 
 
 # SELF-IMPROVEMENT RULES #
-7.1 review existing rules in this file before each task
-7.2 apply confirmed rules by default
-7.3 create/update knowledge after feedback in the # SELF-IMPROVEMENT # section. This is the only section where you (the AI model) are allowed to modify/create lines in this file (AGENTS.md). Start the lines with 8.x, where x is incremented.
-
+7.1 review existing rules in this file, learn them to keep them in mind along our discussion.
+7.2 create/update knowledge in the # SELF-IMPROVEMENT # section below. This is the only section where you (the AI model) are allowed to modify/create lines in this file (AGENTS.md). Start the lines with 8.x, where x is incremented.
+7.3 apply new/edited rules for the following replies
 
 # SELF-IMPROVEMENT #
