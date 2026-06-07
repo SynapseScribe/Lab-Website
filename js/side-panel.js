@@ -1,10 +1,11 @@
+const OFFSET = 20;
 const container = document.querySelector(".side-panel-container");
 const trigger = document.querySelector(".side-panel-trigger");
 const panel = document.querySelector(".side-panel");
 
 if (container && trigger && panel) {
   container.addEventListener("mouseenter", (e) => {
-    let newTop = e.clientY - 20;
+    let newTop = e.clientY - OFFSET;
 
     const panelHeight = panel.offsetHeight;
     const viewportHeight = window.innerHeight;
