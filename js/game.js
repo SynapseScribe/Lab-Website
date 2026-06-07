@@ -46,8 +46,9 @@ function spawnObstacle() {
         type: type
     });
 
-    const minGap = 80;
-    const maxGap = 160;
+    // Initial spacing is wider for better start experience
+    const minGap = 140;
+    const maxGap = 260;
     nextObstacleFrame = frameCount + Math.floor(Math.random() * (maxGap - minGap + 1)) + minGap;
 }
 
@@ -129,7 +130,10 @@ function update() {
     if (frameCount >= nextObstacleFrame) {
         spawnObstacle();
         frameCount = 0;
-        nextObstacleFrame = 100 + Math.floor(score / 5);
+        // More spacing initially, then tighten over time: min gap = max(60, 180 - score)
+        const minGap = Math.max(60, 180 - score);
+        frameCount = 0;
+        nextObstacleFrame = minGap + Math.floor(Math.random() * (240 - minGap + 1)) + minGap;
     }
     if (frameCount % 150 === 0) {
         spawnCollectible();
