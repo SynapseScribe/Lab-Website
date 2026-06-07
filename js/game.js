@@ -90,11 +90,23 @@ function update() {
     for (let i = obstacles.length - 1; i >= 0; i--) {
         obstacles[i].x -= currentSpeed;
 
+        const obsTop = obstacles[i].y;
+        const obsBottom = obstacles[i].y + obstacles[i].height - 40;
+        const obsLeft = obstacles[i].x + 40;
+        const obsRight = obstacles[i].x + obstacles[i].width - 40;
+
+        // Auto-jump when cat hits top of obstacle (bottom edge touches obstacle top, within horizontal range)
+        if (catBottom <= obsTop + 15 && catBottom >= obsTop && catLeft <= obsRight && catRight >= obsLeft) {
+            velocityY = jumpStrength;
+            jumpCount++;
+        }
+
+        // Collision with side/bottom of obstacle triggers game over
         if (
-            catLeft <= obstacles[i].x + obstacles[i].width - 40 &&
-            catRight >= obstacles[i].x + 40 &&
-            catTop <= obstacles[i].y + obstacles[i].height - 40 &&
-            catBottom >= obstacles[i].y + 40
+            catTop <= obsBottom - 40 &&
+            catBottom >= obsBottom + 40 &&
+            catLeft <= obsRight - 40 &&
+            catRight >= obsLeft + 40
         ) {
             gameOver();
         }
