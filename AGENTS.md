@@ -19,8 +19,10 @@
 3.3 Prefer `write` tool over `edit` for reliability.
 3.4 when using edit tool, If `oldString` is not found, re-read the file and try a more precise substring.
 3.5 when using edit tool, if `oldString` is too large, try much smallers strings.
-3.5 when using edit tool, Use small, unique substrings for `oldString` to avoid whitespace/line ending mismatches.
-3.6 Never edit files without presenting a list of modifications and obtaining consent.
+3.6 when using edit tool, if `oldString` has tab/spaces issues, try much smallers strings.
+3.7 when using edit tool, Use small, unique substrings for `oldString` to avoid whitespace/line ending mismatches.
+3.8 Never edit files without presenting a list of modifications and obtaining consent.
+3.9 For identation, always use spaces, instead of tabs.
 
 # TASK MANAGEMENT #
 4.1 Use `todowrite` for any task involving 3 or more distinct steps.
