@@ -38,7 +38,7 @@ function resetGame() {
 }
 
 function spawnObstacle() {
-    const size = Math.floor(Math.random() * 53) + 50; // Size between 50 and 102 (slightly less than cat's width, varies up to ~2x min)
+    const size = Math.floor(Math.random() * 156) + 50; // Size between 50 and 206 (up to ~4x current max)
     const type = OBSTACLE_TYPES[Math.floor(Math.random() * OBSTACLE_TYPES.length)];
     obstacles.push({
         x: canvas.width,
