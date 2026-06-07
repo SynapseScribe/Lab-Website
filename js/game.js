@@ -10,7 +10,7 @@ const gravity = 0.18;
 const jumpStrength = -9;
 const INITIAL_SPEED = 1.3;
 const MAX_SPEED = 100;
-const SPEED_INCREMENT = 0.5;
+const SPEED_INCREMENT = 0.4;
 const COLLISION_PADDING = 0;
 const OBSTACLE_TYPES = ["🌲", "🏠", "🏀", "🚗", "🌵", "📦", "🧱", "🦄", "🛸", "🦖", "🍕", "🍍", "🗿", "🤡", "🍄", "👻", "👽", "🐙", "🌈", "🍦", "🍩", "🍔", "🌮", "🍣", "🥨", "🥑", "🍉", "🐉", "🦁", "🐵", "🐧", "🐘", "🦒", "🐢", "🐍", "🐝", "🦋", "🚀", "🚁", "🚂", "🚢", "🚲", "🛵", "🏎️", "🚜", "🚐", "🚠", "🎸", "🎹", "🎻", "🎺", "🥁", "🎨", "📚", "🧪", "🔬", "🔭", "🏰", "🎡", "🎢", "🗼", "🗽", "⛩️"];
 
@@ -38,7 +38,7 @@ function resetGame() {
 }
 
 function spawnObstacle() {
-    const size = Math.floor(Math.random() * 103) + 50; // Size between 50 and 153 (up to ~3x current max)
+    const size = Math.floor(Math.random() * 53) + 50; // Size between 50 and 102 (slightly less than cat's width, varies up to ~2x min)
     const type = OBSTACLE_TYPES[Math.floor(Math.random() * OBSTACLE_TYPES.length)];
     obstacles.push({
         x: canvas.width,
@@ -48,13 +48,13 @@ function spawnObstacle() {
         type: type
     });
 
-    // Initial spacing is wider for better start experience
-    const minGap = 140;
-    const maxGap = 260;
-    nextObstacleFrame = frameCount + Math.floor(Math.random() * (maxGap - minGap + 1)) + minGap;
+    // Adaptive spacing: wider initially, tightens as score increases
+    const minGap = Math.max(60, 180 - score);
+    nextObstacleFrame = frameCount + Math.floor(Math.random() * (240 - minGap + 1)) + minGap;
 }
 
 function spawnCollectible() {
+    // Fish size: slightly larger than cat but still manageable
     const size = 60;
     // Collectibles spawn within cat's double-jump range (roughly 280-650px from bottom)
     collectibles.push({
@@ -107,12 +107,11 @@ function update() {
         }
     }
 
-    // Collectibles movement and collision
+    // Collectibles movement and collision (fish has larger hitbox for easier collection)
     for (let i = collectibles.length - 1; i >= 0; i--) {
         collectibles[i].x -= currentSpeed;
 
-        // Collectibles collision (fish has larger hitbox for easier collection)
-if (
+        if (
             catLeft <= collectibles[i].x + collectibles[i].width - 15 &&
             catRight >= collectibles[i].x - 40 &&
             catTop <= collectibles[i].y + collectibles[i].height - 15 &&
@@ -131,12 +130,10 @@ if (
 
     // Spawn obstacles and collectibles
     frameCount++;
-    if (frameCount >= nextObstacleFrame) {
+    if (frameCount >= nextObstacleFrame && nextObstacleFrame > 0) {
         spawnObstacle();
-        frameCount = 0;
-        // More spacing initially, then tighten over time: min gap = max(60, 180 - score)
+        frameCount = 0; // Reset for next obstacle gap
         const minGap = Math.max(60, 180 - score);
-        frameCount = 0;
         nextObstacleFrame = minGap + Math.floor(Math.random() * (240 - minGap + 1)) + minGap;
     }
     if (frameCount % 150 === 0) {
