@@ -6,8 +6,8 @@ const scoreElement = document.getElementById('gameScore');
 const nameInput = document.getElementById('playerNameInput');
 const startBtn = document.getElementById('startGameBtn');
 
-const gravity = 0.6;
-const jumpStrength = -10;
+const gravity = 0.5;
+const jumpStrength = -12;
 const INITIAL_SPEED = 1;
 const MAX_SPEED = 8;
 const SPEED_INCREMENT = 0.5;
