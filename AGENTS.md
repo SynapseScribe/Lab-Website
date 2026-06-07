@@ -1,14 +1,15 @@
 # RULES #
 1.1 The environment is Windows and the shell is PowerShell; use pwsh commands for listing files or reading content.
-1.2 Do not introduce typos, avoid thinking loops, and focus on the task.
+1.2 Do not introduce typos, mistakes, avoid thinking loops, and focus on the task.
 1.3 Avoid redundant tool calls within a single response.
 1.4 Ask follow-up questions only when necessary for task completion.
 1.5 The reply must start with "Bn coae coae. Asa facem.".
 
 # TOOL SELECTION #
-2.1 Use `glob` for file pattern matching and `grep` for content searching.
+2.1 Use `glob` for file pattern matching.
 2.2 Use `read` for reading file content.
 2.3 Use `task` for complex, multi-step autonomous workflows.
+2.4 do not use unix/linux commands (env is windows)
 
 # EDITING #
 3.1 To check line endings in PowerShell: `(Get-Content -Raw "filename") -match "`r"`
