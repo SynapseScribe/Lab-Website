@@ -124,32 +124,12 @@ function update() {
         }
     }
 
-
-    // Obstacle movement
-    for (let i = obstacles.length - 1; i >= 0; i--) {
-        obstacles[i].x -= currentSpeed;
-
-        // Collision detection
-        if (
-            CAT_X + COLLISION_PADDING < obstacles[i].x + obstacles[i].width - COLLISION_PADDING &&
-            CAT_X + CAT_SIZE - COLLISION_PADDING > obstacles[i].x + COLLISION_PADDING &&
-            catY + COLLISION_PADDING < obstacles[i].y + obstacles[i].height - COLLISION_PADDING &&
-            catY + CAT_SIZE - COLLISION_PADDING > obstacles[i].y + obstacles[i].height - COLLISION_PADDING
-        ) {
-            gameOver();
-        }
-        // Remove off-screen obstacles
-        if (obstacles[i].x + obstacles[i].width < 0) {
-            obstacles.splice(i, 1);
-            score++;
-            scoreElement.innerText = `Score: ${score}`;
-        }
-    }
-
-    // Spawn obstacles
+    // Spawn obstacles and collectibles
     frameCount++;
     if (frameCount >= nextObstacleFrame) {
         spawnObstacle();
+        frameCount = 0;
+        nextObstacleFrame = 100 + Math.floor(score / 5);
     }
     if (frameCount % 150 === 0) {
         spawnCollectible();
