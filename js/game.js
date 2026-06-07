@@ -1,17 +1,17 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const CAT_X = 40;
-const CAT_SIZE = 30;
+const CAT_X = 80;
+const CAT_SIZE = 60;
 const scoreElement = document.getElementById('gameScore');
 const nameInput = document.getElementById('playerNameInput');
 const startBtn = document.getElementById('startGameBtn');
 
 const gravity = 0.18;
-const jumpStrength = -8;
+const jumpStrength = -9;
 const INITIAL_SPEED = 1.3;
-const MAX_SPEED = 8;
+const MAX_SPEED = 100;
 const SPEED_INCREMENT = 0.5;
-const COLLISION_PADDING = 5;
+const COLLISION_PADDING = 0;
 const OBSTACLE_TYPES = ["🌲", "🏠", "🏀", "🚗", "🌵", "📦", "🧱", "🦄", "🛸", "🦖", "🍕", "🍍", "🗿", "🤡", "🍄", "👻", "👽", "🐙", "🌈", "🍦", "🍩", "🍔", "🌮", "🍣", "🥨", "🥑", "🍉", "🐉", "🦁", "🐵", "🐧", "🐘", "🦒", "🐢", "🐍", "🐝", "🦋", "🚀", "🚁", "🚂", "🚢", "🚲", "🛵", "🏎️", "🚜", "🚐", "🚠", "🎸", "🎹", "🎻", "🎺", "🥁", "🎨", "📚", "🧪", "🔬", "🔭", "🏰", "🎡", "🎢", "🗼", "🗽", "⛩️"];
 
 let gameRunning = false;
@@ -90,12 +90,11 @@ function update() {
     for (let i = obstacles.length - 1; i >= 0; i--) {
         obstacles[i].x -= currentSpeed;
 
-        // Collision detection
         if (
-            catLeft + COLLISION_PADDING < obstacles[i].x + obstacles[i].width - COLLISION_PADDING &&
-            catRight - COLLISION_PADDING > obstacles[i].x + COLLISION_PADDING &&
-            catTop + COLLISION_PADDING < obstacles[i].y + obstacles[i].height - COLLISION_PADDING &&
-            catBottom - COLLISION_PADDING > obstacles[i].y + COLLISION_PADDING
+            catLeft <= obstacles[i].x + obstacles[i].width - 16 &&
+            catRight >= obstacles[i].x + 16 &&
+            catTop <= obstacles[i].y + obstacles[i].height - 16 &&
+            catBottom >= obstacles[i].y + 16
         ) {
             gameOver();
         }
@@ -112,11 +111,12 @@ function update() {
     for (let i = collectibles.length - 1; i >= 0; i--) {
         collectibles[i].x -= currentSpeed;
 
-        if (
-            catLeft + COLLISION_PADDING < collectibles[i].x + collectibles[i].width - COLLISION_PADDING &&
-            catRight - COLLISION_PADDING > collectibles[i].x + COLLISION_PADDING &&
-            catTop + COLLISION_PADDING < collectibles[i].y + collectibles[i].height - COLLISION_PADDING &&
-            catBottom - COLLISION_PADDING > collectibles[i].y + COLLISION_PADDING
+        // Collectibles collision (fish has larger hitbox for easier collection)
+if (
+            catLeft <= collectibles[i].x + collectibles[i].width - 15 &&
+            catRight >= collectibles[i].x - 40 &&
+            catTop <= collectibles[i].y + collectibles[i].height - 15 &&
+            catBottom >= collectibles[i].y - 40
         ) {
             score += 5;
             scoreElement.innerText = `Score: ${score}`;
