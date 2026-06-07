@@ -36,3 +36,12 @@
 6.2 Use `git reset --hard HEAD && git clean -f` to restore changes when requested.
 6.3 Only when user says "lookin crispy": stage changes, commit with description, and push to master. Do not push to master, unless i specifically say so, or I say "lookin crispy"
 6.4 Never pull changes, unless you ask first and receive confirmation.
+
+
+# SELF-IMPROVEMENT RULES #
+7.1 review existing rules in this file before each task
+7.2 apply confirmed rules by default
+7.3 create/update knowledge after feedback in the # SELF-IMPROVEMENT # section. This is the only section where you (the AI model) are allowed to modify/create lines in this file (AGENTS.md). Start the lines with 8.x, where x is incremented.
+
+
+# SELF-IMPROVEMENT #
