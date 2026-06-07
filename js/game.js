@@ -56,10 +56,10 @@ function spawnObstacle() {
 
 function spawnCollectible() {
     const size = 30;
-    // Spawn within double-jump reach (cat can reach up to ~326px from bottom)
+    // Collectibles spawn within cat's double-jump range (roughly 280-650px from bottom)
     collectibles.push({
         x: canvas.width,
-        y: Math.random() * (canvas.height - 350), // Max reachable height minus some buffer
+        y: canvas.height - 350 + Math.random() * 180,
         width: size,
         height: size
     });
