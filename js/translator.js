@@ -48,10 +48,12 @@ if (translateBtn && translatorInput && translationResult) {
       return;
     }
 
-    const words = text.split(/\s+/);
+    const words = text.split(/\s+/).filter(w => /[a-zA-Z\u00C0-\u024F]/.test(w));
     const wordCount = words.length;
 
-    translationResult.textContent = "meow ".repeat(wordCount - 1).trim() + "...meow";
+    const lastChar = text.slice(-1);
+    const punctuation = ["!", "?", "."].includes(lastChar) ? lastChar : ".";
+    translationResult.textContent = "meow ".repeat(wordCount - 1).trim() + "...meow" + punctuation;
 
     const playNext = (index) => {
       if (index >= wordCount) return;
