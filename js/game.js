@@ -111,10 +111,10 @@ function update() {
     const obsLeft = obstacles[i].x + 10;
     const obsRight = obstacles[i].x + obstacles[i].width - 10;
 
-    // Auto-jump when cat lands on top of obstacle
+    // Auto-jump when cat is about to land on top of obstacle
     if (
-      catBottom >= obsTop &&
-      catBottom <= obsTop + 20 &&
+      catBottom >= obsTop - 20 &&
+      catBottom <= obsTop &&
       velocityY >= 0 &&
       catLeft < obsRight &&
       catRight > obsLeft
@@ -131,6 +131,7 @@ function update() {
       catRight > obsLeft
     ) {
       gameOver();
+      return;
     }
     if (obstacles[i].x + obstacles[i].width < 0) {
       obstacles.splice(i, 1);
@@ -213,10 +214,12 @@ function draw() {
     ctx.fillText(item.emoji, item.x, canvas.height);
   });
 
-  // Draw Obstacles
+  // Draw Obstacles (centered on collision box center)
+  ctx.textAlign = "center";
+  ctx.textBaseline = "bottom";
   obstacles.forEach((obs) => {
     ctx.font = `${obs.height}px Arial`;
-    ctx.fillText(obs.type, obs.x, obs.y + obs.height);
+    ctx.fillText(obs.type, obs.x + obs.width / 2 - 10, obs.y + obs.height);
   });
 
   // Draw Collectibles (Fish Emoji)
