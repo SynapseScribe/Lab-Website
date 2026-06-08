@@ -17,9 +17,9 @@ const startBtn = document.getElementById("startGameBtn");
 const gravity = 0.18;
 const jumpStrength = -9;
 const maxJumpsBeforeReset = 2;
-const INITIAL_SPEED = 2.5;
+const INITIAL_SPEED = 5;
 const MAX_SPEED = 15;
-const SPEED_INCREMENT = 0.3;
+const SPEED_INCREMENT = 0.5;
 const OBSTACLE_TYPES = ["🌲", "🏠", "🏀", "🚗", "🌵", "📦", "🧱", "🦄", "🛸", "🦖", "🍕", "🍍", "🗿", "🤡", "🍄", "👻", "👽", "🐙", "🌈", "🍦", "🍩", "🍔", "🌮", "🍣", "🥨", "🥑", "🍉", "🐉", "🦁", "🐵", "🐧", "🐘", "🦒", "🐢", "🐍", "🐝", "🦋", "🚀", "🚁", "🚂", "🚢", "🚲", "🛵", "🏎️", "🚜", "🚐", "🚠", "🎸", "🎹", "🎻", "🎺", "🥁", "🎨", "📚", "🧪", "🔬", "🔭", "🏰", "🎡", "🎢", "🗼", "🗽", "⛩️"];
 
 
@@ -101,7 +101,7 @@ function update() {
 
   currentSpeed = Math.min(
     MAX_SPEED,
-    INITIAL_SPEED + Math.floor(score / 10) * SPEED_INCREMENT,
+    INITIAL_SPEED + Math.floor(score / 5) * SPEED_INCREMENT,
   );
 
   // Gravity
