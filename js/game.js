@@ -87,6 +87,7 @@ let collectibles = [];
 let frameCount = 0;
 let nextObstacleFrame = 100;
 let jumpCount = 0;
+let currentSpeed = INITIAL_SPEED;
 const maxJumpsBeforeReset = 2;
 
 function resetGame() {
@@ -97,6 +98,7 @@ function resetGame() {
   collectibles = [];
   frameCount = 0;
   nextObstacleFrame = 100;
+  currentSpeed = INITIAL_SPEED;
   scoreElement.innerText = "Score: 0";
 }
 
@@ -128,7 +130,7 @@ function spawnCollectible() {
 function update() {
   if (!gameRunning) return;
 
-  const currentSpeed = Math.min(
+  currentSpeed = Math.min(
     MAX_SPEED,
     INITIAL_SPEED + Math.floor(score / 10) * SPEED_INCREMENT,
   );
@@ -225,6 +227,14 @@ function update() {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw Speed counter (top-right)
+  ctx.save();
+  ctx.fillStyle = "#d4af37";
+  ctx.font = "bold 18px Arial";
+  ctx.textAlign = "right";
+  ctx.fillText(`Speed: ${currentSpeed.toFixed(1)}`, canvas.width - 15, 25);
+  ctx.restore();
 
   // Draw Cat (Black Cat Emoji) - Flipped Horizontally
   ctx.save();
