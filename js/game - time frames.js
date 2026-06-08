@@ -16,25 +16,24 @@ const startBtn = document.getElementById("startGameBtn");
 const gravity = 0.18;
 const jumpStrength = -9;
 const maxJumpsBeforeReset = 2;
-const INITIAL_SPEED = 4;
 const MAX_SPEED = 20;
 const SPEED_INCREMENT = 0.1;
 const OBSTACLE_TYPES = [
-  "🌲","🏠","🏀","🚗","🌵","📦","🧱","🦄","🛸","🦖","🍕","🍍","🗿","🤡","🍄","👻",
-  "👽","🐙","🌈","🍦","🍩","🍔","🌮","🍣","🥨","🥑","🍉","🦁","🐵","🐧","🐘","🦒",
-  "🐢","🐍","🐝","🦋","🚀","🚁","🚂","🚢","🚲","🛵","🚜","🚐","🚠","🎸","🎹","🎻",
-  "🎺","🥁","🎨","📚","🧪","🔬","🔭","🏰","🎢","🗼","🗽","⛩️","🪨","🧯","🛑","⚠️",
-  "🪵","🪺","🌋","⛰️","🏔️","🏝️","🏜️","🏟️","🏗️","🪂","🧭","🪄","🕳️",
-  "🪓","🔒","🧨","💣","🪤","🩸","🧫","🧬","🪀","🪁","🧿","🔮","🧸","🎯","🏹","🪃",
-  "🛡️","⚔️","🗡️","🔧","🪛","🔩","⚙️","🦺","🏳️‍🌈","🎈","🕹️","🧳","🗝️","🦽","🛏️",
-  "🛋️","🦊","🐺","🐻","🐼","🐨","🦝","🦌","🦅","🦉","🦇","🐿️","🦜","🐇","🐁","🐀",
-  "🦨","🦡","🦔","🐗","🦃","🦚","🥕","🍓","🍒","🍇","🥝","🥥","🍪","🍫","🥞","🍯",
-  "🛶","🛰️","🛎️","🪙","⚽","🥎","🏐","🏉","🥏","🏓","🏸","🥊","🥋","🧗","🏃","🏄",
-  "🏊","🚣","🤺","🤸","🛼","🛻","🪕","🪗","🧩","🪬","🪚","🧰","🛠️","🔨","⚒️","🧴",
-  "🧷","🧹","🧺","🪣","🩺","💡","🔦","🔌","💻","🖥️","🖨️","🖱️","🎛️","📻","📺","📷",
-  "🎥","📽️","📡","🗺️","🪧","🏳️","🏴","🎌","🎭","🎪","🎟️","🎫","🔔","🚨","🚧","⛏️",
-  "🛟","🪼","🪸","🪜","🪝","🪞","🪟","🪦","🪙","🧲","🧯","🧫","🧬","🧻","🧼","🧽",
-  "🎤","🎧","🎷","🪇","🪆","🪪", "🦈", "🪼", "🦉", "🫷","👈","🤚","🔫","👝","🤾","👜"
+    "🌲", "🏠", "🏀", "🚗", "🌵", "📦", "🧱", "🦄", "🛸", "🦖", "🍕", "🍍", "🗿", "🤡", "🍄", "👻",
+    "👽", "🐙", "🌈", "🍦", "🍩", "🍔", "🌮", "🍣", "🥨", "🥑", "🍉", "🦁", "🐵", "🐧", "🐘", "🦒",
+    "🐢", "🐍", "🐝", "🦋", "🚀", "🚁", "🚂", "🚢", "🚲", "🛵", "🚜", "🚐", "🚠", "🎸", "🎹", "🎻",
+    "🎺", "🥁", "🎨", "📚", "🧪", "🔬", "🔭", "🏰", "🎢", "🗼", "🗽", "⛩️", "🪨", "🧯", "🛑", "⚠️",
+    "🪵", "🪺", "🌋", "⛰️", "🏔️", "🏝️", "🏜️", "🏟️", "🏗️", "🪂", "🧭", "🪄", "🕳️",
+    "🪓", "🔒", "🧨", "💣", "🪤", "🩸", "🧫", "🧬", "🪀", "🪁", "🧿", "🔮", "🧸", "🎯", "🏹", "🪃",
+    "🛡️", "⚔️", "🗡️", "🔧", "🪛", "🔩", "⚙️", "🦺", "🏳️‍🌈", "🎈", "🕹️", "🧳", "🗝️", "🦽", "🛏️",
+    "🛋️", "🦊", "🐺", "🐻", "🐼", "🐨", "🦝", "🦌", "🦅", "🦉", "🦇", "🐿️", "🦜", "🐇", "🐁", "🐀",
+    "🦨", "🦡", "🦔", "🐗", "🦃", "🦚", "🥕", "🍓", "🍒", "🍇", "🥝", "🥥", "🍪", "🍫", "🥞", "🍯",
+    "🛶", "🛰️", "🛎️", "🪙", "⚽", "🥎", "🏐", "🏉", "🥏", "🏓", "🏸", "🥊", "🥋", "🧗", "🏃", "🏄",
+    "🏊", "🚣", "🤺", "🤸", "🛼", "🛻", "🪕", "🪗", "🧩", "🪬", "🪚", "🧰", "🛠️", "🔨", "⚒️", "🧴",
+    "🧷", "🧹", "🧺", "🪣", "🩺", "💡", "🔦", "🔌", "💻", "🖥️", "🖨️", "🖱️", "🎛️", "📻", "📺", "📷",
+    "🎥", "📽️", "📡", "🗺️", "🪧", "🏳️", "🏴", "🎌", "🎭", "🎪", "🎟️", "🎫", "🔔", "🚨", "🚧", "⛏️",
+    "🛟", "🪼", "🪸", "🪜", "🪝", "🪞", "🪟", "🪦", "🪙", "🧲", "🧯", "🧫", "🧬", "🧻", "🧼", "🧽",
+    "🎤", "🎧", "🎷", "🪇", "🪆", "🪪", "🦈", "🪼", "🦉", "🫷", "👈", "🤚", "🔫", "👝", "🤾", "👜"
 ];
 const COLLISION_HORIZONTAL_PADDING = 30; // increase to be more permissive
 const COLLISION_VERTICAL_PADDING = 30; // increase to be more permissive
@@ -82,7 +81,7 @@ const meowSounds = [
     "meow_sounds/freesound_community-cat-meow-85175.mp3",
     "meow_sounds/dragon-studio-meow-sfx-405456.mp3",
     "meow_sounds/dragon-studio-cute-cat-meow-472372.mp3",
-    "meow_sounds/dragon-studio-cat-meow-401729.mp3",
+    "meow_sounds/dragon-studio-cat-meow-401729.mp3"
 ];
 
 // preload
@@ -99,27 +98,36 @@ function meow() {
 
 function resetGame() {
     score = 0;
-    CAT_Y = canvas.height - CAT_SIZE / 2; // center of cat is at half the size of cat, initially
+    CAT_Y = CANVAS_HEIGHT - CAT_SIZE / 2;
     velocityY = 0;
     obstacles = [];
     collectibles = [];
     frameCount = 0;
-    nextObstacleFrame = 100;
+    frameTimeAccumulator = 0;
+    nextObstacleMs = 1200;
     currentSpeed = INITIAL_SPEED;
-    groundY = canvas.height - GROUND_HEIGHT;
+    groundY = CANVAS_HEIGHT - GROUND_HEIGHT;
     initGrass();
     initCelestial();
     scoreElement.innerText = "Score: 0";
+    lastTime = performance.now();
 }
 
+// --- time-based movement & canvas DPR ---
+let lastTime = 0;
+let frameTimeAccumulator = 0;
+
+// treat currentSpeed as "units" that used to be px/frame @60; convert to px/sec
+// (optional: change INITIAL_SPEED meaning if you want different feel)
+const INITIAL_SPEED = 4; // ~4 px/frame @60 => ~240 px/sec
+const SPEED_FRAMES_PER_SEC = 60; // used to convert old speed units to px/sec
+
+// spawn timing in ms instead of frames
+let nextObstacleMs = 1000; // initial delay (ms)
+let obstacleMinGapMs = 1000; // will be updated dynamically
 
 
-
-
-
-
-
-// # GRASS #
+// 							# GRASS #
 
 
 // build cache once, for faster rendering
@@ -128,7 +136,9 @@ const sizeList = [28, 36, 44, 48]; // limited set
 
 const GRASS_MIN_SPACING = 40;
 const GRASS_MAX_SPACING = 80;
-function randomGrassGap(){ return GRASS_MIN_SPACING + Math.random() * (GRASS_MAX_SPACING - GRASS_MIN_SPACING); }
+function randomGrassGap() {
+    return GRASS_MIN_SPACING + Math.random() * (GRASS_MAX_SPACING - GRASS_MIN_SPACING);
+}
 
 // cache per emoji+size to speed drawing - for GROUND GRASS
 const emojiCache = new Map();
@@ -148,18 +158,19 @@ for (const emoji of GRASS_EMOJIS) {
 }
 
 function initGrass() {
-  grassItems = [];
-  let x = -GRASS_SIZE;
-  while (x <= canvas.width + GRASS_SIZE) {
-    const emoji = GRASS_EMOJIS[Math.floor(Math.random() * GRASS_EMOJIS.length)];
-    const size = sizeList[Math.floor(Math.random() * sizeList.length)];
-    grassItems.push({ x, emoji, size });
-    x += randomGrassGap();
-  }
+    grassItems = [];
+    let x = -GRASS_SIZE;
+    while (x <= canvas.width + GRASS_SIZE) {
+        const emoji = GRASS_EMOJIS[Math.floor(Math.random() * GRASS_EMOJIS.length)];
+        const size = sizeList[Math.floor(Math.random() * sizeList.length)];
+        grassItems.push({
+            x,
+            emoji,
+            size
+        });
+        x += randomGrassGap();
+    }
 }
-
-
-
 
 function initCelestial() {
     celestialObjects = [];
@@ -174,165 +185,156 @@ function initCelestial() {
     }
 }
 
-
-
-
-// # OBSTACLES
+// 							# OBSTACLES
 
 const emojiRenderCache = new Map();
 function prerenderEmoji(emoji, size) {
-  const key = `${emoji}_${size}`;
-  if (emojiRenderCache.has(key)) return emojiRenderCache.get(key);
+    const key = `${emoji}_${size}`;
+    if (emojiRenderCache.has(key))
+        return emojiRenderCache.get(key);
 
-  const padding = Math.ceil(size * 0.25);            // extra room to avoid cropping
-  const w = size + padding * 2;
-  const oc = document.createElement('canvas');
-  oc.width = oc.height = w;
-  const c = oc.getContext('2d');
+    const padding = Math.ceil(size * 0.25); // extra room to avoid cropping
+    const w = size + padding * 2;
+    const oc = document.createElement('canvas');
+    oc.width = oc.height = w;
+    const c = oc.getContext('2d');
 
-  // use emoji-friendly font fallbacks (order matters)
-  c.font = `${size}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji", Arial`;
-  c.textAlign = 'center';
-  c.textBaseline = 'middle';
-  c.clearRect(0, 0, w, w);
-  c.fillText(emoji, w / 2, w / 2);
+    // use emoji-friendly font fallbacks (order matters)
+    c.font = `${size}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji", Arial`;
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.clearRect(0, 0, w, w);
+    c.fillText(emoji, w / 2, w / 2);
 
-  emojiRenderCache.set(key, oc);
-  return oc;
+    emojiRenderCache.set(key, oc);
+    return oc;
 }
 function spawnObstacle() {
     const OBSTACLE_VERTICAL_OFFSET = 60;
     const size = Math.floor(Math.random() * (MAX_OBSTACLE_SIZE - MIN_OBSTACLE_SIZE + 1)) + MIN_OBSTACLE_SIZE;
     const type = OBSTACLE_TYPES[Math.floor(Math.random() * OBSTACLE_TYPES.length)];
-    const img = prerenderEmoji(type, size); // cheap if cached
+    const img = prerenderEmoji(type, size);
     obstacles.push({
-        x: canvas.width,
-        y: canvas.height - size + OBSTACLE_VERTICAL_OFFSET,
+        x: CANVAS_WIDTH,
+        y: CANVAS_HEIGHT - size + OBSTACLE_VERTICAL_OFFSET,
         width: size,
         height: size,
         type,
-        img // store the offscreen canvas
+        img
     });
 }
 
-
-
-
-
 // 									# COLLECTIBLES
 
-const COLLECTIBLE_TYPES = ["🐟","🐠","💎","🍪","🍩","🎁","🪙","⭐","🌟","🎵", "🐟","🐠","🦐","🐡","🕊️","🐦‍⬛","🦆","🐓","🐥","🦜","🦢","🪿","🦃"];
+const COLLECTIBLE_TYPES = ["🐟", "🐠", "💎", "🍪", "🍩", "🎁", "🪙", "⭐", "🌟", "🎵", "🐟", "🐠", "🦐", "🐡", "🕊️", "🐦‍⬛", "🦆", "🐓", "🐥", "🦜", "🦢", "🪿", "🦃"];
 const COLLECTIBLE_SCORES = {
-  "🐟": 5,
-  "🐠": 6,
-  "🦐": 7,
-  "🐡": 8,
-  "💎": 25,
-  "🍪": 10,
-  "🍩": 10,
-  "🎁": 15,
-  "🪙": 12,
-  "⭐": 20,
-  "🌟": 20,
-  "🎵": 5,
-  "🕊️": 8,
-  "🐦‍⬛": 9,
-  "🦆": 8,
-  "🐓": 7,
-  "🐥": 6,
-  "🦜": 9,
-  "🦢": 10,
-  "🪿": 10,
-  "🦃": 12
+    "🐟": 5,
+    "🐠": 6,
+    "🦐": 7,
+    "🐡": 8,
+    "💎": 25,
+    "🍪": 10,
+    "🍩": 10,
+    "🎁": 15,
+    "🪙": 12,
+    "⭐": 20,
+    "🌟": 20,
+    "🎵": 5,
+    "🕊️": 8,
+    "🐦‍⬛": 9,
+    "🦆": 8,
+    "🐓": 7,
+    "🐥": 6,
+    "🦜": 9,
+    "🦢": 10,
+    "🪿": 10,
+    "🦃": 12
 };
 const DEFAULT_COLLECTIBLE_SCORE = 5;
 
 const collectibleRenderCache = new Map();
 function prerenderCollectible(emoji, size) {
-  const key = `${emoji}_${size}`;
-  if (collectibleRenderCache.has(key)) return collectibleRenderCache.get(key);
-  const padding = Math.ceil(size * 0.25);
-  const w = size + padding * 2;
-  const oc = document.createElement('canvas');
-  oc.width = oc.height = w;
-  const c = oc.getContext('2d');
-  c.font = `${size}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji", Arial`;
-  c.textAlign = 'center';
-  c.textBaseline = 'middle';
-  c.clearRect(0,0,w,w);
-  c.fillText(emoji, w/2, w/2);
-  collectibleRenderCache.set(key, oc);
-  return oc;
+    const key = `${emoji}_${size}`;
+    if (collectibleRenderCache.has(key))
+        return collectibleRenderCache.get(key);
+    const padding = Math.ceil(size * 0.25);
+    const w = size + padding * 2;
+    const oc = document.createElement('canvas');
+    oc.width = oc.height = w;
+    const c = oc.getContext('2d');
+    c.font = `${size}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji", Arial`;
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.clearRect(0, 0, w, w);
+    c.fillText(emoji, w / 2, w / 2);
+    collectibleRenderCache.set(key, oc);
+    return oc;
 }
 
 function spawnCollectible() {
-  const size = 48 + Math.floor(Math.random() * 36); // 48..83
-  const type = COLLECTIBLE_TYPES[Math.floor(Math.random() * COLLECTIBLE_TYPES.length)];
-  const y = canvas.height - 350 + Math.random() * 180;
-  const img = prerenderCollectible(type, size);
-  collectibles.push({
-    x: canvas.width,
-    y,
-    width: size,
-    height: size,
-    type,
-    img
-  });
+    const size = 48 + Math.floor(Math.random() * 36); // 48..83
+    const type = COLLECTIBLE_TYPES[Math.floor(Math.random() * COLLECTIBLE_TYPES.length)];
+    const y = canvas.height - 350 + Math.random() * 180;
+    const img = prerenderCollectible(type, size);
+    collectibles.push({
+        x: canvas.width,
+        y,
+        width: size,
+        height: size,
+        type,
+        img
+    });
 }
 
-function update() {
+function update(now = performance.now()) {
     if (!gameRunning)
         return;
+    const deltaMs = now - lastTime;
+    lastTime = now;
+    frameTimeAccumulator += deltaMs;
 
-    currentSpeed = Math.min(
-            MAX_SPEED,
-            INITIAL_SPEED + Math.floor(score / 5) * SPEED_INCREMENT, );
+    // convert currentSpeed (old units: px/frame@60) into px/sec
+    const pxPerSec = currentSpeed * SPEED_FRAMES_PER_SEC;
+    const moveAmount = pxPerSec * (deltaMs / 1000); // pixels to move this frame
 
-    // Gravity
-    velocityY += gravity;
-    CAT_Y += velocityY;
+    // Gravity (time-based)
+    velocityY += gravity * (deltaMs / 16.6667); // gravity scaled approx per-frame
+    CAT_Y += velocityY * (deltaMs / 16.6667);
 
     const catLeft = CAT_X - CAT_SIZE / 2;
     const catRight = CAT_X + CAT_SIZE / 2;
     const catTop = CAT_Y - CAT_SIZE / 2;
     const catBottom = CAT_Y + CAT_SIZE / 2;
 
-    // Floor collision
-    if (catBottom > canvas.height) {
-        CAT_Y = canvas.height - CAT_SIZE / 2;
+    // Floor collision (use CSS pixels coordinates)
+    if (catBottom > CANVAS_HEIGHT) {
+        CAT_Y = CANVAS_HEIGHT - CAT_SIZE / 2;
         velocityY = 0;
         jumpCount = 0;
     }
 
-    // Obstacle movement
+    // Move obstacles by moveAmount
     for (let i = obstacles.length - 1; i >= 0; i--) {
-        obstacles[i].x -= currentSpeed;
+        obstacles[i].x -= moveAmount;
 
         const obsTop = obstacles[i].y;
         const obsBottom = obstacles[i].y + obstacles[i].height;
         const obsLeft = obstacles[i].x + 10;
         const obsRight = obstacles[i].x + obstacles[i].width - 10;
 
-        // Auto-jump when cat is about to land on top of obstacle
+        // Auto-jump and collision logic: keep same but uses current computed positions
         if (
-            // cat bottom is at or below the top, or slightly into it (tolerance)
             catBottom >= obsTop - AUTOJUMP_VERTICAL_TOLERANCE &&
             catBottom <= obsTop + AUTOJUMP_VERTICAL_TOLERANCE &&
-            // only auto-jump when falling or near landing
             velocityY >= 0 &&
-            // horizontal overlap: cat is overlapping or very close to obstacle horizontally
             catLeft < obsRight + AUTOJUMP_HORIZONTAL_MARGIN &&
             catRight > obsLeft - AUTOJUMP_HORIZONTAL_MARGIN) {
             velocityY = jumpStrength;
             jumpCount++;
             meow();
-        }
-
-        // Collision with sides or bottom of obstacle triggers game over
-        else if (
+        } else if (
             catBottom > obsTop + COLLISION_VERTICAL_PADDING &&
             catTop < obsBottom - COLLISION_VERTICAL_PADDING &&
-            // require more horizontal overlap (ignore glancing side contacts)
             catLeft < obsRight - COLLISION_HORIZONTAL_PADDING &&
             catRight >= obsLeft + 20 + COLLISION_HORIZONTAL_PADDING) {
             meow();
@@ -346,51 +348,55 @@ function update() {
         }
     }
 
-    // Collectibles movement and collision (fish has larger hitbox for easier collection)
+    // Move collectibles
     for (let i = collectibles.length - 1; i >= 0; i--) {
-        collectibles[i].x -= currentSpeed;
-
+        collectibles[i].x -= moveAmount;
         if (
             catLeft <= collectibles[i].x + collectibles[i].width - 15 &&
             catRight >= collectibles[i].x - 40 &&
             catTop <= collectibles[i].y + collectibles[i].height - 15 &&
             catBottom >= collectibles[i].y - 40) {
             score += COLLECTIBLE_SCORES[collectibles[i].type] ?? DEFAULT_COLLECTIBLE_SCORE;
-            //meow(); // too much meows lel
             scoreElement.innerText = `Score: ${score}`;
             collectibles.splice(i, 1);
             continue;
         }
-
         if (collectibles[i].x + collectibles[i].width < 0) {
             collectibles.splice(i, 1);
         }
     }
 
-    //*
     // Grass scrolling
-for (const item of grassItems) {
-  item.x -= currentSpeed;
-  if (item.x < -GRASS_SIZE) {
-    // find the rightmost item x to place this one after it with random gap
-    const rightmostX = Math.max(...grassItems.map(g => g.x));
-    item.x = rightmostX + randomGrassGap();
-    // optionally randomize emoji/size on recycle:
-    item.emoji = GRASS_EMOJIS[Math.floor(Math.random() * GRASS_EMOJIS.length)];
-    item.size = sizeList[Math.floor(Math.random() * sizeList.length)];
-  }
-}
-    //*/
-
-    // Spawn obstacles and collectibles
-    frameCount++;
-    if (frameCount >= nextObstacleFrame && nextObstacleFrame > 0) {
-        spawnObstacle();
-        const minGap = Math.max(680, 180 - score);
-        nextObstacleFrame =
-            frameCount + minGap + Math.floor(Math.random() * (240 - minGap + 1));
+    for (const item of grassItems) {
+        item.x -= moveAmount;
+        if (item.x < -GRASS_SIZE) {
+            const rightmostX = Math.max(...grassItems.map(g => g.x));
+            item.x = rightmostX + randomGrassGap();
+            item.emoji = GRASS_EMOJIS[Math.floor(Math.random() * GRASS_EMOJIS.length)];
+            item.size = sizeList[Math.floor(Math.random() * sizeList.length)];
+        }
     }
-    if (frameCount % 150 === 0) {
+
+    // Update speed based on score (same logic but keep numeric calculation)
+    currentSpeed = Math.min(
+            MAX_SPEED,
+            INITIAL_SPEED + Math.floor(score / 5) * SPEED_INCREMENT);
+
+    // Spawn obstacles using ms accumulator
+    // minGap in ms should shrink with score; example conversion from your original minGap
+    const minGap = Math.max(680, 180 - score); // original units (frames) — we treat as ms here as coarse mapping
+    obstacleMinGapMs = minGap;
+    if (frameTimeAccumulator >= nextObstacleMs) {
+        spawnObstacle();
+        // choose a new gap (ms)
+        const minGapMs = Math.max(680, 180 - score);
+        const maxExtraMs = Math.max(240 - minGapMs, 0);
+        nextObstacleMs = minGapMs + Math.floor(Math.random() * (maxExtraMs + 1));
+        frameTimeAccumulator = 0;
+    }
+
+    // periodic collectibles every ~150 frames -> convert to ~150/60 sec = 2.5s => 2500ms
+    if (Math.random() < deltaMs / 2500) { // probabilistic, approximates periodic spawn
         spawnCollectible();
     }
 
@@ -400,7 +406,7 @@ for (const item of grassItems) {
 
 let bgGradient = createBackgroundGradient();
 function createBackgroundGradient() {
-    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    const gradient = ctx.createLinearGradient(0, 0, 0, CANVAS_HEIGHT);
     gradient.addColorStop(0, "#0a0a2e");
     gradient.addColorStop(0.5, "#1a1a4e");
     gradient.addColorStop(1, "#2d1b69");
@@ -415,7 +421,7 @@ function draw() {
     ctx.font = "80px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText("🌖", canvas.width - 150, 120);
+    ctx.fillText(`Speed: ${currentSpeed.toFixed(1)}`, canvas.width - 15, 25);
 
     // Draw celestial objects (back layer)
     ctx.save();
@@ -453,7 +459,7 @@ function draw() {
         const img = emojiCache.get(key);
         if (!img)
             continue;
-        const y = canvas.height; // bottom of canvas (or use groundY + GROUND_HEIGHT)
+        const y = CANVAS_HEIGHT;
         ctx.drawImage(img, item.x - img.width / 2, y - img.height);
     }
 
@@ -466,11 +472,11 @@ function draw() {
 
     // Draw Collectibles
     collectibles.forEach(coll => {
-  const img = coll.img || prerenderCollectible(coll.type, coll.height);
-  const dx = coll.x - img.width/2 + coll.width/2; // center horizontally
-  const dy = coll.y + coll.height - img.height;   // align bottom
-  ctx.drawImage(img, dx, dy, img.width, img.height);
-});
+        const img = coll.img || prerenderCollectible(coll.type, coll.height);
+        const dx = coll.x - img.width / 2 + coll.width / 2; // center horizontally
+        const dy = coll.y + coll.height - img.height; // align bottom
+        ctx.drawImage(img, dx, dy, img.width, img.height);
+    });
 }
 
 function gameOver() {
@@ -534,7 +540,8 @@ function startGame() {
     startBtn.disabled = true;
     nameInput.disabled = true;
     resetGame();
-    update();
+    lastTime = performance.now();
+    requestAnimationFrame(update);
 }
 
 startBtn.addEventListener("click", startGame);
@@ -564,3 +571,15 @@ canvas.addEventListener("mousedown", () => {
 // Initialize scores display on load
 ensureDefaultHighScore();
 displayScores();
+
+function resizeCanvasToDisplaySize() {
+    const dpr = Math.max(window.devicePixelRatio || 1, 1);
+    canvas.style.width = CANVAS_WIDTH + "px";
+    canvas.style.height = CANVAS_HEIGHT + "px";
+    canvas.width = Math.floor(CANVAS_WIDTH * dpr);
+    canvas.height = Math.floor(CANVAS_HEIGHT * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // maintain drawing in CSS pixels
+    bgGradient = createBackgroundGradient(); // recreate gradient for new size
+}
+resizeCanvasToDisplaySize();
+window.addEventListener('resize', resizeCanvasToDisplaySize);

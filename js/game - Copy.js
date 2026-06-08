@@ -114,12 +114,23 @@ function resetGame() {
 
 
 
+// --- time-based movement & canvas DPR ---
+let lastTime = 0;
+let frameTimeAccumulator = 0;
+
+// treat currentSpeed as "units" that used to be px/frame @60; convert to px/sec
+// (optional: change INITIAL_SPEED meaning if you want different feel)
+const INITIAL_SPEED = 4; // ~4 px/frame @60 => ~240 px/sec
+const SPEED_FRAMES_PER_SEC = 60; // used to convert old speed units to px/sec
+
+// spawn timing in ms instead of frames
+let nextObstacleMs = 1000; // initial delay (ms)
+let obstacleMinGapMs = 1000; // will be updated dynamically
 
 
 
 
-
-// # GRASS #
+// 							# GRASS #
 
 
 // build cache once, for faster rendering
@@ -177,7 +188,7 @@ function initCelestial() {
 
 
 
-// # OBSTACLES
+// 							# OBSTACLES
 
 const emojiRenderCache = new Map();
 function prerenderEmoji(emoji, size) {
