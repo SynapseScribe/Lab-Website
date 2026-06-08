@@ -203,7 +203,7 @@ footer { text-align: center; padding: 2rem 0; font-size: 0.9rem; opacity: 0.6; }
 .cat-game { background-color: rgba(212, 175, 55, 0.2); padding: 2rem; border-radius: 15px; margin-top: 2rem; text-align: center; border: 1px solid #d4af37; }
 .cat-game h3 { color: #d4af37; margin-top: 0; }
 .game-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-#gameCanvas { background-color: #f4f4f4; border: 3px solid #d4af37; border-radius: 10px; cursor: pointer; }
+#gameCanvas { background-color: #f4f4f4; border: 3px solid #d4af37; border-radius: 10px; cursor: pointer; max-width: 100%; height: auto; }
 .game-controls { display: flex; gap: 1rem; }
 #playerNameInput, #startGameBtn { padding: 0.5rem; border-radius: 5px; border: 1px solid #d4af37; }
 #startGameBtn { background-color: #d4af37; color: #000; font-weight: bold; cursor: pointer; }
@@ -228,3 +228,43 @@ footer { text-align: center; padding: 2rem 0; font-size: 0.9rem; opacity: 0.6; }
 .contact-form input, .contact-form textarea { padding: 0.8rem; border-radius: 5px; border: 1px solid #d4af37; background-color: #2a2a2a; color: #f4f4f4; }
 .contact-form button { padding: 0.8rem; background-color: #d4af37; color: #000; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: background-color 0.3s ease; }
 .contact-form button:hover { background-color: #ff8c00; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .image-container img,
+  .carousel-slides img {
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  .cat-game {
+    padding: 1rem;
+  }
+
+  #gameCanvas {
+    width: 100%;
+    height: auto;
+  }
+
+  .side-panel-container {
+    display: none;
+  }
+
+  .orange-cat-container {
+    flex-direction: column;
+  }
+
+  .game-controls {
+    flex-direction: column;
+  }
+
+  .carousel-prev,
+  .carousel-next {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+  }
+}

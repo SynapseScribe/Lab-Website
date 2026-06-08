@@ -1,8 +1,23 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d"); // 2D drawing context
 
-const CAT_X = 160; // center of cat is at 160px from left side of the game canvas
 const CAT_SIZE = 80;
+let CAT_X = 160;
+
+function resizeCanvas() {
+  const container = canvas.parentElement;
+  const containerWidth = container.clientWidth;
+  const maxWidth = 800;
+  const width = Math.min(containerWidth, maxWidth);
+  canvas.style.width = width + "px";
+  canvas.style.height = (width * 0.5) + "px";
+  canvas.width = width;
+  canvas.height = width * 0.5;
+  CAT_X = width * 0.2;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 const scoreElement = document.getElementById("gameScore");
 const nameInput = document.getElementById("playerNameInput");
